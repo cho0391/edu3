@@ -1,0 +1,40 @@
+# spring.application.name=edu2
+
+# # DB 설정
+# spring.datasource.url = jdbc:mysql://localhost:3306/ict_db
+# spring.datasource.username = ictedu
+# spring.datasource.password = 1111
+# spring.datasource.driver-class-name = com.mysql.cj.jdbc.Driver
+
+# # 생략 가능
+# server.port = 8080
+
+# mybatis.mapper-locations=mapper/*.xml
+# mybatis.type-aliases-package=com.ict.edu2
+# # mybatis.type-aliases-package=com.ict.edu2.domain
+
+
+spring:
+  application:
+    name : edu3
+
+  datasource:
+    url : jdbc:mysql://localhost:3306/ict_db
+    username : ictedu
+    password : 1111
+    driver-class-name : com.mysql.cj.jdbc.Driver
+
+server:
+  port : 8080
+  servlet:
+    context-path: /
+
+mybatis:
+  mapper-locations : mapper/*.xml
+  type-aliases-package : com.ict.edu3
+# mybatis.type-aliases-package=com.ict.edu2.domain
+
+# 비밀키 사용(32바이트 길이)
+jwt:
+  secret : "qPwOeIrUtYqPwOeIrUtYqPwOeIrUtY10"
+  expiration : 3600000 # 1시간
