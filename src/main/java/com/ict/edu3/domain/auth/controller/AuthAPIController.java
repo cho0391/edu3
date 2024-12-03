@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ict.edu3.common.util.JwtUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -17,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AuthAPIController {
   @Autowired
   private JwtUtil jwtUtil;
+
+  @GetMapping("/test")
+  public String getMethodName() {
+      return "Hello World" ;
+  }
+  
 
   @PostMapping("/generate-token")
   public String postMethodName(@RequestBody Map<String, String> request) {
