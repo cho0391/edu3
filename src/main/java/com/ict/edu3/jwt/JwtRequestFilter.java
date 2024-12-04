@@ -65,7 +65,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             // DataVO에서 m_id, m_pw, 를 username, password
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             log.info("userDetails.username : " + userDetails.getUsername() + "\n");
-            log.info("userDetails.userpassword : " + userDetails.getPassword() + "\n");
+            log.info("userDetails.password : " + userDetails.getPassword() + "\n");
 
             if (jwtUtil.validateToken(jwtToken, userDetails)) {
                 // Spring Security 인증객체 생성
@@ -76,8 +76,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // Spring Security 컨텍스트에 저장
+                // 인증 성공 후 아래 코드로 인증 객체를 SecurityContext에 설정
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            } else {
+                log.warn("JWT 토큰이 유효하지 않습니다");
             }
         }
         filterChain.doFilter(request, response);
