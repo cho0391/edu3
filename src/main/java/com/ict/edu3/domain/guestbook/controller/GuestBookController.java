@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
@@ -75,17 +77,50 @@ public class GuestBookController {
             int result = guestBookService.getGuestBookDelete(gb_idx);
             if (result == 0) {
                 dataVO.setSuccess(false);
-                dataVO.setMessage("게스트북 삭제 실패");
+                dataVO.setMessage("게시물 삭제 실패");
                 return dataVO;
             }
             dataVO.setSuccess(true);
-            dataVO.setMessage("게스트북 삭제 성공");
+            dataVO.setMessage("게시물 삭제 성공");
 
         } catch (Exception e) {
             dataVO.setSuccess(false);
-            dataVO.setMessage("게스트북 삭제 오류 발생");
+            dataVO.setMessage("게시물 삭제 오류 발생");
         }
         return dataVO;
     }
+    
+    @PutMapping("/update/{gb_idx}")
+    public DataVO getGuestBookUpdate(@PathVariable String gb_idx, @RequestBody GuestBookVO gvo, Authentication authentication) {
+        DataVO dataVO = new DataVO();
+        log.info("gb_idx : " + gb_idx);
+        try {
+            // 로그인 여부 확인
+            if (authentication == null) {
+                dataVO.setSuccess(false);
+                dataVO.setMessage("로그인이 필요합니다.");
+                return dataVO;
+            }
+            // log.info("gb_idx : " + gb_idx + "\n");
+            // log.info("gvo : " + gvo + "\n");
+            // log.info("authentication : " + authentication.getName() + "\n");
+            // int result = 0;
 
+            // 파라미터 확인
+            int result = guestBookService.getGuestBookUpdate(gvo);
+            
+            if (result == 0) {
+                dataVO.setSuccess(false);
+                dataVO.setMessage("게시물 수정 실패");
+                return dataVO;
+            }
+            dataVO.setSuccess(true);
+            dataVO.setMessage("게시물 수정 성공");
+
+        } catch (Exception e) {
+            dataVO.setSuccess(false);
+            dataVO.setMessage("게시물 수정 오류 발생");
+        }
+        return dataVO;
+    }
 }
