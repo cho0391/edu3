@@ -23,4 +23,9 @@
 		where gb_idx = #{gb_idx}
 	</update>
 
+	<insert id="getGuestBookWrite" parameterType="GuestBookVO">
+    INSERT INTO guestbook (gb_name, gb_pw, gb_subject, gb_content, gb_email, gb_regdate, gb_filename, gb_id)
+    VALUES (#{gb_name}, #{gb_pw}, #{gb_subject}, #{gb_content}, #{gb_email}, NOW(), #{gb_filename}, #{gb_id});
+</insert>
+
 </mapper>	
